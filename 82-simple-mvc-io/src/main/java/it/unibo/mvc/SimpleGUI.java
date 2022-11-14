@@ -39,6 +39,7 @@ public final class SimpleGUI {
                 }
             }
         });
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void display() {
