@@ -5,16 +5,24 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.channels.NonReadableChannelException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
 
@@ -45,6 +53,18 @@ public class BadIOGUI {
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
+         * Ex 01.01
+         */
+        final JPanel pan = new JPanel();
+        pan.setLayout(new BoxLayout(pan, BoxLayout.LINE_AXIS));
+        canvas.add(pan, BorderLayout.CENTER);
+        pan.add(write);
+        /*
+         * Ex 01.02
+         */
+        final JButton read = new JButton("Read on file");
+        pan.add(read);
+        /*
          * Handlers
          */
         write.addActionListener(new ActionListener() {
@@ -62,6 +82,19 @@ public class BadIOGUI {
                 } catch (IOException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
+            }
+        });
+        /*
+         * Ex 01.03
+         */
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    System.out.println(Files.readAllLines(new File(PATH).toPath(), StandardCharsets.UTF_8));
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -98,6 +131,6 @@ public class BadIOGUI {
      * @param args ignored
      */
     public static void main(final String... args) {
-       new BadIOGUI().display();
+        new BadIOGUI().display();
     }
 }
