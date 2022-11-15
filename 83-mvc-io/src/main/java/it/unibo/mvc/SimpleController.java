@@ -18,7 +18,7 @@ public final class SimpleController implements Controller {
     }
 
     @Override
-    public void setString(String string) throws IllegalArgumentException {
+    public void setString(String string) {
         if (string == null) {
             throw new IllegalArgumentException("Null strings are not allowed");
         }
@@ -36,7 +36,7 @@ public final class SimpleController implements Controller {
     }
 
     @Override
-    public void print() throws IllegalStateException {
+    public void print() {
         if (this.currString == null) {
             throw new IllegalStateException("The string to be printed is unset");
         }
