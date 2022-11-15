@@ -1,6 +1,5 @@
 package it.unibo.mvc;
 
-import java.io.ObjectInputFilter.Config;
 import java.util.Random;
 
 /**
