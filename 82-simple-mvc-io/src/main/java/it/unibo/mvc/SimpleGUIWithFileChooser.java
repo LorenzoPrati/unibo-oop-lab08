@@ -24,6 +24,11 @@ public final class SimpleGUIWithFileChooser {
     private final JFrame frame = new JFrame();
     private static final int PROPORTION = 5;
 
+    /**
+     * 
+     * @param controller is the {@code Controller} to be
+     *                   added to the GUI
+     */
     public SimpleGUIWithFileChooser(final Controller controller) {
         final JPanel pan = new JPanel(new BorderLayout());
         this.frame.getContentPane().add(pan);
@@ -33,12 +38,11 @@ public final class SimpleGUIWithFileChooser {
         pan.add(save, BorderLayout.SOUTH);
         save.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
-                final String text = textArea.getText();
+            public void actionPerformed(final ActionEvent arg0) {
                 try {
-                    controller.writeString(text);
+                    controller.writeString(textArea.getText());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -52,50 +56,45 @@ public final class SimpleGUIWithFileChooser {
         upPan.add(browse, BorderLayout.LINE_END);
         browse.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(final ActionEvent arg0) {
                 final JFileChooser chooser = new JFileChooser();
-                try {
-                    final int retVal = chooser.showSaveDialog(browse);
-                    if (retVal == JFileChooser.APPROVE_OPTION) {
-                        controller.setCurrentFile(chooser.getSelectedFile());
-                        pathText.setText(controller.getPath());
-                    } 
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(frame, e, "An error has occurred", JOptionPane.ERROR_MESSAGE);
+                final int retVal = chooser.showSaveDialog(frame);
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+                    controller.setFile(chooser.getSelectedFile());
+                    pathText.setText(controller.getPath());
+                    // CHECKSTYLE: EmptyBlockCheck OFF
+                } else if (retVal == JFileChooser.CANCEL_OPTION) {
+                    /*
+                     * Nothing to do
+                     */
+                } else {
+                    // CHECKSTYLE: EmptyBlockCheck ON
+                    JOptionPane.showMessageDialog(frame, retVal, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Displays the GUI with chosen size.
+     */
     private void display() {
-        /*
-         * Make the frame one fifth the resolution of the screen. This very method is
-         * enough for a single screen setup. In case of multiple monitors, the
-         * primary is selected. In order to deal coherently with multimonitor
-         * setups, other facilities exist (see the Java documentation about this
-         * issue). It is MUCH better than manually specify the size of a window
-         * in pixel: it takes into account the current resolution.
-         */
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / PROPORTION, sh / PROPORTION);
-        /*
-         * Instead of appearing at (0,0), upper left corner of the screen, this
-         * flag makes the OS window manager take care of the default positioning
-         * on screen. Results may vary, but it is generally the best choice.
-         */
         frame.setLocationByPlatform(true);
-        /*
-         * OK, ready to push the frame onscreen
-         */
         frame.setVisible(true);
     }
 
+    /**
+     * Starts the application.
+     * 
+     * @param args unused
+     */
     public static void main(final String[] args) {
         new SimpleGUIWithFileChooser(new Controller()).display();
     }
 
 }
-
