@@ -22,7 +22,7 @@ public interface DrawNumberView {
     void numberIncorrect();
 
     /**
-     * @parma res the result of the last draw
+     * @param res the result of the last draw
      */
     void result(DrawResult res);
 

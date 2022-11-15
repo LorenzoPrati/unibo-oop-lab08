@@ -15,6 +15,8 @@ public final class DrawNumberImpl implements DrawNumber {
     private final Random random = new Random();
 
     /**
+     * @param config is the model {@code Configuration} 
+     * 
      * @throws IllegalStateException if the configuration is not consistent
      */
     public DrawNumberImpl(final Configuration config) {

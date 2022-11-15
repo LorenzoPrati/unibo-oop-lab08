@@ -70,13 +70,13 @@ public final class Configuration {
         private int min = MIN;
         private int max = MAX;
         private int attempts = ATTEMPTS;
-        private boolean consumed = false;
+        private boolean consumed;
 
         /**
          * @param min the minimum value
          * @return this builder, for method chaining
          */
-        public Builder setMin(final int min) {
+        public Builder setMin(final int min) {  // NOPMD
             this.min = min;
             return this;
         }

@@ -74,6 +74,9 @@ public final class DrawNumberViewImpl implements DrawNumberView {
         frame.setLocationByPlatform(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.frame.setVisible(true);
@@ -84,17 +87,26 @@ public final class DrawNumberViewImpl implements DrawNumberView {
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setObserver(final DrawNumberViewObserver observer) {
         this.observer = observer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void numberIncorrect() {
         JOptionPane.showMessageDialog(frame, "Incorrect Number... try again", "Incorrect Number",
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void result(final DrawResult res) {
         switch (res) {
@@ -118,8 +130,11 @@ public final class DrawNumberViewImpl implements DrawNumberView {
         JOptionPane.showMessageDialog(frame, msg, "Result", JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void displayError(String message) {
+    public void displayError(final String message) {
         JOptionPane.showMessageDialog(frame, null, message, JOptionPane.ERROR_MESSAGE);
     }
 }

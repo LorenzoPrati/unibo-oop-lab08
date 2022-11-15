@@ -11,10 +11,11 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 
 /**
+ * Represents a {@code DrawNumberApp} implementation.
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
 
-    private DrawNumber model = null;
+    private final DrawNumber model;
     private final List<DrawNumberView> views;
 
     /**
@@ -30,6 +31,9 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             view.setObserver(this);
             view.start();
         }
+        /*
+         * Loading of configuration from file.
+         */
         final InputStream in = Objects.requireNonNull(
                 ClassLoader.getSystemResourceAsStream("config.yml"));
         final var configBuilder = new Configuration.Builder();
@@ -38,17 +42,17 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             while ((line = br.readLine()) != null) {
                 final StringTokenizer tk = new StringTokenizer(line);
                 final String pattern = tk.nextToken();
-                if (pattern.equals("minimum:")) {
+                if ("minimum:".equals(pattern)) {
                     configBuilder.setMin(Integer.parseInt(tk.nextToken()));
                 }
-                if (pattern.equals("maximum:")) {
+                if ("maximum:".equals(pattern)) {
                     configBuilder.setMax(Integer.parseInt(tk.nextToken()));
                 }
-                if (pattern.equals("attempts:")) {
+                if ("attempts:".equals(pattern)) {
                     configBuilder.setAttempts(Integer.parseInt(tk.nextToken()));
                 }
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             this.displayError(e.getMessage());
         }
         final Configuration config = configBuilder.build();
@@ -82,11 +86,17 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resetGame() {
         this.model.reset();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void quit() {
         /*
