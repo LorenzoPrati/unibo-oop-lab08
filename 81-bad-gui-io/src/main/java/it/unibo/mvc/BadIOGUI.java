@@ -82,9 +82,9 @@ public class BadIOGUI {
          */
         read.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
-                    System.out.println(Files.readAllLines(new File(PATH).toPath(), StandardCharsets.UTF_8));
+                    System.out.println(Files.readAllLines(new File(PATH).toPath(), StandardCharsets.UTF_8)); // NOPMD
                 } catch (IOException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                 }
