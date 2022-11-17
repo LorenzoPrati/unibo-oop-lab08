@@ -76,7 +76,7 @@ public final class Configuration {
          * @param min the minimum value
          * @return this builder, for method chaining
          */
-        public Builder setMin(final int min) {  // NOPMD
+        public Builder min(final int min) {
             this.min = min;
             return this;
         }
@@ -85,7 +85,7 @@ public final class Configuration {
          * @param max the maximum value
          * @return this builder, for method chaining
          */
-        public Builder setMax(final int max) {
+        public Builder max(final int max) { 
             this.max = max;
             return this;
         }
@@ -94,7 +94,7 @@ public final class Configuration {
          * @param attempts the attempts count
          * @return this builder, for method chaining
          */
-        public Builder setAttempts(final int attempts) {
+        public Builder attempts(final int attempts) {
             this.attempts = attempts;
             return this;
         }

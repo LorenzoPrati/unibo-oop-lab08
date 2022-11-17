@@ -39,17 +39,17 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         final var configBuilder = new Configuration.Builder();
         try (var br = new BufferedReader(new InputStreamReader(in))) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) { // NOPMD
                 final StringTokenizer tk = new StringTokenizer(line);
                 final String pattern = tk.nextToken();
                 if ("minimum:".equals(pattern)) {
-                    configBuilder.setMin(Integer.parseInt(tk.nextToken()));
+                    configBuilder.min(Integer.parseInt(tk.nextToken()));
                 }
                 if ("maximum:".equals(pattern)) {
-                    configBuilder.setMax(Integer.parseInt(tk.nextToken()));
+                    configBuilder.max(Integer.parseInt(tk.nextToken()));
                 }
                 if ("attempts:".equals(pattern)) {
-                    configBuilder.setAttempts(Integer.parseInt(tk.nextToken()));
+                    configBuilder.attempts(Integer.parseInt(tk.nextToken()));
                 }
             }
         } catch (final IOException e) {
